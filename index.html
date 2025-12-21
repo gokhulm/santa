@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+
+        <style>
+            html, body {
+                height: 100%;
+                margin: 0;
+                font-family: sans-serif;
+            }
+
+            .fkrc-container {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+            }
+
+            #fkrc-verifywin-window {
+                width: 680px;
+            }
+
+            #fkrc-verifywin-window .fkrc-verifywin-container,
+            #fkrc-verifywin-window .fkrc-verifywin-header,
+            #fkrc-verifywin-window .fkrc-verifywin-main,
+            #fkrc-verifywin-window .fkrc-verifywin-footer {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .fkrc-verifywin-main {
+                padding: 20px;
+            }
+
+            /* Extra gap before “Select the answer” */
+            .clue-subtitle {
+                margin-top: 30px;  /* adjust value for more/less gap */
+            }
+
+            .verify-images-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+
+            .verify-image-tile {
+                position: relative;
+                cursor: pointer;
+                overflow: hidden;
+            }
+
+            .verify-image-tile img.main-img {
+                width: 100%;
+                height: auto;
+                display: block;
+            }
+
+            .verify-image-tile .tick-icon {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 64px;
+                height: 64px;
+                display: none;
+                pointer-events: none;
+            }
+
+            .verify-image-tile.selected .tick-icon {
+                display: block;
+            }
+        </style>
+
+        <link href="src/fakerecaptcha.css" rel="stylesheet">
+    </head>
+    <body>
+    <!-- Fake captcha start -->
+    <div class="fkrc-container fkrc-m-p">
+        <!-- Captcha checkbox widget (original size) -->
+        <div id="fkrc-checkbox-window" class="fkrc-checkbox-window fkrc-m-p fkrc-block">
+            <div class="fkrc-checkbox-container fkrc-m-p">
+                <button type="button" id="fkrc-checkbox" class="fkrc-checkbox fkrc-m-p fkrc-line-normal"></button>
+            </div>
+            <p class="fkrc-im-not-a-robot fkrc-m-p fkrc-line-normal">I'm not a robot</p>
+            <img src="images/captcha_logo.svg" class="fkrc-captcha-logo fkrc-line-normal" alt="">
+            <p class="fkrc-checkbox-desc fkrc-m-p fkrc-line-normal">CAPTCHA</p>
+            <p class="fkrc-checkbox-desc fkrc-m-p fkrc-line-normal">Privacy - Terms</p>
+            <img src="images/captcha_spinner.gif" class="fkrc-spinner fkrc-m-p fkrc-line-normal" alt="" id="fkrc-spinner">
+        </div>
+
+        <!-- Captcha checkbox verification window (popup, now wider) -->
+        <div id="fkrc-verifywin-window" class="fkrc-verifywin-window">
+            <div class="fkrc-verifywin-container">
+                <header class="fkrc-verifywin-header">
+                    <span class="fkrc-verifywin-header-text-medium fkrc-m-p fkrc-block">Clue</span>
+                    <span class="fkrc-verifywin-header-text-big fkrc-m-p fkrc-block">
+                        Present for your neighbour? Firstly, please loudly utter, “Merry Christmas!” and keep eggnog. (4,4)
+                    </span>
+                    <span class="fkrc-verifywin-header-text-medium fkrc-m-p fkrc-block clue-subtitle">
+                        Select the answer
+                    </span>
+                </header>
+
+                <main class="fkrc-verifywin-main">
+                    <div class="verify-images-grid">
+                        <div class="verify-image-tile" data-img="img1">
+                            <img src="images/img1.jpg" alt="Image 1" class="main-img">
+                            <img src="images/icon-256x256.png" alt="Selected" class="tick-icon">
+                        </div>
+                        <div class="verify-image-tile" data-img="img2">
+                            <img src="images/img2.jpg" alt="Image 2" class="main-img">
+                            <img src="images/icon-256x256.png" alt="Selected" class="tick-icon">
+                        </div>
+                        <div class="verify-image-tile" data-img="img3">
+                            <img src="images/img3.jpg" alt="Image 3" class="main-img">
+                            <img src="images/icon-256x256.png" alt="Selected" class="tick-icon">
+                        </div>
+                        <div class="verify-image-tile" data-img="img4">
+                            <img src="images/img4.jpg" alt="Image 4" class="main-img">
+                            <img src="images/icon-256x256.png" alt="Selected" class="tick-icon">
+                        </div>
+                        <div class="verify-image-tile" data-img="img5">
+                            <img src="images/img5.jpg" alt="Image 5" class="main-img">
+                            <img src="images/icon-256x256.png" alt="Selected" class="tick-icon">
+                        </div>
+                        <div class="verify-image-tile" data-img="img6">
+                            <img src="images/img6.jpg" alt="Image 6" class="main-img">
+                            <img src="images/icon-256x256.png" alt="Selected" class="tick-icon">
+                        </div>
+                    </div>
+                </main>
+            </div>
+
+            <footer class="fkrc-verifywin-container fkrc-verifywin-footer">
+                <div class="fkrc-verifywin-footer-left">
+                    Press the verify button to proceed.
+                </div>
+                <button type="button" class="fkrc-verifywin-verify-button fkrc-block" id="fkrc-verifywin-verify-button">Verify</button>
+            </footer>
+        </div>
+
+        <img src="images/captcha_arrow.svg" alt="" class="fkrc-verifywin-window-arrow" id="fkrc-verifywin-window-arrow"/>
+    </div>
+    <!-- Fake captcha end -->
+
+    <script src="src/fakerecaptcha.js"></script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var tiles = document.querySelectorAll('.verify-image-tile');
+
+        // Only one tile selected at a time
+        tiles.forEach(function (tile) {
+          tile.addEventListener('click', function () {
+            tiles.forEach(function (t) { t.classList.remove('selected'); });
+            tile.classList.add('selected');
+          });
+        });
+
+        var verifyBtn = document.getElementById('fkrc-verifywin-verify-button');
+
+        // Remove other click handlers (from fakerecaptcha.js)
+        var newBtn = verifyBtn.cloneNode(true);
+        verifyBtn.parentNode.replaceChild(newBtn, verifyBtn);
+        verifyBtn = newBtn;
+
+        verifyBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+
+          var img4Tile = document.querySelector('.verify-image-tile[data-img="img4"]');
+          if (img4Tile && img4Tile.classList.contains('selected')) {
+            alert('Merry Christmas from BBP!');
+          } else {
+            alert('Please select the correct image.');
+          }
+        });
+      });
+    </script>
+    </body>
+</html>
