@@ -19,9 +19,10 @@
                 max-width: 90vw;
             }
 
+            /* Smaller popup base size */
             #fkrc-verifywin-window {
-                width: 680px;
-                max-width: 95vw;
+                width: 480px;          /* desktop width */
+                max-width: 90vw;       /* prevent overflow on small screens */
                 margin-left: auto;
                 margin-right: auto;
             }
@@ -35,20 +36,19 @@
             }
 
             .fkrc-verifywin-main {
-                padding: 20px;
+                padding: 16px;
             }
 
-            /* Extra gap before "Select the answer" */
             .clue-subtitle {
-                margin-top: 30px;
+                margin-top: 24px;
             }
 
+            /* 3x2 grid, smaller tiles */
             .verify-images-grid {
                 display: grid;
-                grid-template-columns: repeat(3, 1fr); /* Desktop: 3 columns */
-                grid-template-rows: repeat(2, auto);   /* 2 rows */
-                gap: 12px;
-                max-height: 400px;
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: repeat(2, auto);
+                gap: 8px;
             }
 
             .verify-image-tile {
@@ -56,7 +56,7 @@
                 cursor: pointer;
                 overflow: hidden;
                 border-radius: 4px;
-                border: 3px solid transparent;
+                border: 2px solid transparent;
                 transition: border-color 0.2s ease;
             }
 
@@ -77,8 +77,8 @@
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                width: 64px;
-                height: 64px;
+                width: 48px;
+                height: 48px;
                 display: none;
                 pointer-events: none;
                 z-index: 1;
@@ -92,38 +92,48 @@
                 display: block;
             }
 
-            /* Mobile: 2 columns, 3 rows */
+            /* Mobile / tablet: narrower popup, 2x3 grid */
             @media (max-width: 768px) {
                 #fkrc-verifywin-window {
-                    width: 95vw;
-                    top: 5vh;
-                    left: 2.5vw;
+                    width: 92vw;
+                    max-width: 92vw;
+                    left: 4vw;
                 }
 
                 .fkrc-verifywin-main {
-                    padding: 15px;
+                    padding: 12px;
                 }
 
                 .verify-images-grid {
-                    grid-template-columns: repeat(2, 1fr); /* Mobile: 2 columns */
-                    grid-template-rows: repeat(3, auto);   /* 3 rows */
-                    gap: 10px;
+                    grid-template-columns: repeat(2, 1fr);
+                    grid-template-rows: repeat(3, auto);
+                    gap: 6px;
                 }
 
                 .verify-image-tile img.main-img {
-                    aspect-ratio: 1/1; /* Square on mobile */
+                    aspect-ratio: 4/3;
+                }
+
+                .verify-image-tile .tick-icon {
+                    width: 40px;
+                    height: 40px;
                 }
             }
 
-            /* Very small screens */
             @media (max-width: 480px) {
                 .fkrc-container {
                     left: 5px;
                     top: 5px;
                 }
 
+                #fkrc-verifywin-window {
+                    width: 94vw;
+                    max-width: 94vw;
+                    left: 3vw;
+                }
+
                 .verify-images-grid {
-                    gap: 8px;
+                    gap: 4px;
                 }
             }
         </style>
@@ -145,7 +155,7 @@
             <img src="images/captcha_spinner.gif" class="fkrc-spinner fkrc-m-p fkrc-line-normal" alt="" id="fkrc-spinner">
         </div>
 
-        <!-- Captcha checkbox verification window (popup, responsive) -->
+        <!-- Captcha checkbox verification window (popup) -->
         <div id="fkrc-verifywin-window" class="fkrc-verifywin-window">
             <div class="fkrc-verifywin-container">
                 <header class="fkrc-verifywin-header">
@@ -233,5 +243,5 @@
         });
       });
     </script>
-</body>
+    </body>
 </html>
