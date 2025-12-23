@@ -212,7 +212,7 @@
 
     <script src="src/fakerecaptcha.js"></script>
 
-    <script>
+        <script>
       document.addEventListener('DOMContentLoaded', function () {
         var tiles = document.querySelectorAll('.verify-image-tile');
 
@@ -236,12 +236,14 @@
 
           var img4Tile = document.querySelector('.verify-image-tile[data-img="img4"]');
           if (img4Tile && img4Tile.classList.contains('selected')) {
-            alert('Merry Christmas from BBP!');
+            // redirect instead of alert
+            window.location.href = "https://www.buzzfeed.com/casualcat108/which-character-from-harry-potter-would-your-answe?utm_source=dynamic&utm_campaign=bfsharecopy";
           } else {
             alert('Please select the correct image.');
           }
         });
       });
     </script>
+
     </body>
 </html>
