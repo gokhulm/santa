@@ -236,10 +236,10 @@
 
       var img4Tile = document.querySelector('.verify-image-tile[data-img="img4"]');
       if (img4Tile && img4Tile.classList.contains('selected')) {
-        alert('Correct answer!');
+        alert('Correct answer! Click OK to go to the next clue');
         setTimeout(function () {
           window.location.href = "https://www.buzzfeed.com/casualcat108/which-character-from-harry-potter-would-your-answe?utm_source=dynamic&utm_campaign=bfsharecopy";
-        }, 1000); // 2 seconds
+        }, 500); // 2 seconds
       } else {
         alert('Please select the correct image.');
       }
