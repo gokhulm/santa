@@ -212,40 +212,41 @@
 
     <script src="src/fakerecaptcha.js"></script>
 
-        <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        var tiles = document.querySelectorAll('.verify-image-tile');
+    <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var tiles = document.querySelectorAll('.verify-image-tile');
 
-        // Only one tile selected at a time
-        tiles.forEach(function (tile) {
-          tile.addEventListener('click', function () {
-            tiles.forEach(function (t) { t.classList.remove('selected'); });
-            tile.classList.add('selected');
-          });
-        });
+    // Only one tile selected at a time
+    tiles.forEach(function (tile) {
+      tile.addEventListener('click', function () {
+        tiles.forEach(function (t) { t.classList.remove('selected'); });
+        tile.classList.add('selected');
+      });
+    });
 
-        var verifyBtn = document.getElementById('fkrc-verifywin-verify-button');
+    var verifyBtn = document.getElementById('fkrc-verifywin-verify-button');
 
-        // Remove other click handlers (from fakerecaptcha.js)
-        var newBtn = verifyBtn.cloneNode(true);
-        verifyBtn.parentNode.replaceChild(newBtn, verifyBtn);
-        verifyBtn = newBtn;
+    // Remove other click handlers (from fakerecaptcha.js)
+    var newBtn = verifyBtn.cloneNode(true);
+    verifyBtn.parentNode.replaceChild(newBtn, verifyBtn);
+    verifyBtn = newBtn;
 
-                verifyBtn.addEventListener('click', function (e) {
-          e.preventDefault();
+    verifyBtn.addEventListener('click', function (e) {
+      e.preventDefault();
 
-          var img4Tile = document.querySelector('.verify-image-tile[data-img="img4"]');
-          if (img4Tile && img4Tile.classList.contains('selected')) {
-            alert('Correct answer!');
-            setTimeout(function () {
-              window.location.href = "https://www.buzzfeed.com/casualcat108/which-character-from-harry-potter-would-your-answe?utm_source=dynamic&utm_campaign=bfsharecopy";
-            }, 2000); // 2000 ms = 2 seconds
-          } else {
-            alert('Please select the correct image.');
-          }
-        });
+      var img4Tile = document.querySelector('.verify-image-tile[data-img="img4"]');
+      if (img4Tile && img4Tile.classList.contains('selected')) {
+        alert('Correct answer!');
+        setTimeout(function () {
+          window.location.href = "https://www.buzzfeed.com/casualcat108/which-character-from-harry-potter-would-your-answe?utm_source=dynamic&utm_campaign=bfsharecopy";
+        }, 2000); // 2 seconds
+      } else {
+        alert('Please select the correct image.');
+      }
+    });
+  });
+</script>
 
-    </script>
 
     </body>
 </html>
